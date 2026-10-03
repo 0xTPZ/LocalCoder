@@ -51,8 +51,10 @@ Commits locais atuais:
 - `ac02241d2d7d2624ce63f825de43b35033bbce04` — `docs: finalize Mission 001 evidence`
 - `a3ee05aa7d370010f0c584a74109c77b52752f46` — `docs: record public repository handoff`
 - `941833a8d2cca8e4a4c67e6691b1d3cb391aefa8` — `feat: add versioned state persistence foundation`
+- `14a5892460cba1be6996e5598abd89745e9070c0` — `docs: finalize Mission 002 evidence`
 
 Repositório público: https://github.com/0xTPZ/LocalCoder. O primeiro push foi concluído em `main`.
+O push da Missão 002 também foi concluído sem force push; `HEAD` e `origin/main` coincidem.
 
 ## Próxima missão recomendada
 

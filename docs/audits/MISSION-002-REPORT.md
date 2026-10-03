@@ -119,10 +119,13 @@ após as correções.
 
 ## 14. Situação Git/GitHub
 
-Durante a preparação, o worktree parte de `888e6ac` e o remoto é
-`https://github.com/0xTPZ/LocalCoder.git`. O push final só pode ser declarado `PASS` depois de
-testes, scanner, `git diff --check`, revisão de arquivos não rastreados, verificação de modelos/
-binários grandes e confirmação de `AFolha`/`TopazioAI` sem alterações.
+O worktree final está limpo em `main`, com `HEAD` e `origin/main` em
+`14a5892460cba1be6996e5598abd89745e9070c0`. O remoto é
+`https://github.com/0xTPZ/LocalCoder.git`, público, e o push foi `PASS`, sem force push.
+
+Antes do push foram executados testes, scanner, `git diff --check`, parsing dos 12 schemas,
+compilação, inspeção de arquivos staged, ausência de modelos/binários grandes e confirmação dos
+worktrees externos.
 
 ## 15. AFolha e TopazioAI
 
