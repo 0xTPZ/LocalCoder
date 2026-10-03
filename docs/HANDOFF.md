@@ -40,7 +40,12 @@ O Git local é criado nesta missão. O GitHub CLI foi confirmado autenticado com
 do repositório público depende da etapa explicitamente registrada no relatório e não deve ocorrer
 com segredo no diff.
 
-Commit local atual: `7bd942c0a8367ef0f4695ffc9b029c3e48a5a07f` (`feat: establish LocalCoder foundation`).
+Commits locais atuais:
+
+- `7bd942c0a8367ef0f4695ffc9b029c3e48a5a07f` — `feat: establish LocalCoder foundation`
+- `ac02241d2d7d2624ce63f825de43b35033bbce04` — `docs: finalize Mission 001 evidence`
+
+Repositório público: https://github.com/0xTPZ/LocalCoder. O primeiro push foi concluído em `main`.
 
 ## Próxima missão recomendada
 
