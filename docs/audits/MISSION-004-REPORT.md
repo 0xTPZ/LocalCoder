@@ -157,8 +157,10 @@ ser alterado.
 ## 15. Git/GitHub
 
 O repositório público `0xTPZ/LocalCoder` foi atualizado sem force push. O HEAD final e os commits
-da missão serão registrados nesta seção após o gate final. O gate inclui testes, scanner, compilação,
-schemas, diff check, artefatos proibidos e worktrees externos.
+da missão ficam registrados no histórico: `2df6ee0` (`feat: add model gateway and inference lab`)
+contém a implementação e a documentação base desta missão. A sincronização documental final segue
+no commit imediatamente posterior; o gate inclui testes, scanner, compilação, schemas, diff check,
+artefatos proibidos e worktrees externos.
 
 ## 16. Próxima missão recomendada
 

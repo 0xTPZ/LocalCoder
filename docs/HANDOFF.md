@@ -58,8 +58,9 @@ python tools\run_model_lab.py --config configs\model-gateway.example.json `
 
 ## Git e GitHub
 
-O repositório público é https://github.com/0xTPZ/LocalCoder. Os commits da Missão 004 e o HEAD
-final serão preenchidos após o gate final; não usar force push. Antes do push devem passar suíte,
+O repositório público é https://github.com/0xTPZ/LocalCoder. O commit de implementação da Missão
+004 é `2df6ee0` (`feat: add model gateway and inference lab`); a sincronização documental final
+segue no histórico imediatamente posterior. Não usar force push. Antes do push devem passar suíte,
 scanner, compilação, schemas, diff check, artefatos proibidos e worktrees externos.
 
 ## Próxima missão recomendada
