@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "localcoder"
+version = "0.1.0"
+description = "Fundação de um agente local autônomo orientado a missões."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "0xTPZ" }]
+license = { text = "TBD" }
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = []
+
+[project.scripts]
+localcoder = "localcoder.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

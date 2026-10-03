@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.secret
+*.pem
+*.key
+*.p12
+*.pfx
+*.credentials
+
+# Runtime state, logs, and checkpoints
+/var/logs/*
+/var/checkpoints/*
+/var/state/*
+!/var/logs/.gitkeep
+!/var/checkpoints/.gitkeep
+!/var/state/.gitkeep
+
+# Large/local model artifacts
+*.gguf
+*.ggml
+*.safetensors
+*.bin
+/models/
+
+# Editor and OS files
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+Desktop.ini
