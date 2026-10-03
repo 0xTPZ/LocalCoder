@@ -51,7 +51,7 @@ git status --short
 ## Git e GitHub
 
 O GitHub CLI continua autenticado como `0xTPZ`; o repositório público existente é
-https://github.com/0xTPZ/LocalCoder. O push da Missão 002 só ocorre após suíte, scanner, diff,
+https://github.com/0xTPZ/LocalCoder. O push da Missão 003 só ocorre após suíte, scanner, diff,
 arquivos não rastreados, ausência de modelos/binários grandes e worktrees externos limpos.
 
 Commits locais atuais:
@@ -61,8 +61,9 @@ Commits locais atuais:
 - `a3ee05aa7d370010f0c584a74109c77b52752f46` — `docs: record public repository handoff`
 - `941833a8d2cca8e4a4c67e6691b1d3cb391aefa8` — `feat: add versioned state persistence foundation`
 - `14a5892460cba1be6996e5598abd89745e9070c0` — `docs: finalize Mission 002 evidence`
+- `5382c08` — `feat: add durable checkpoint recovery`
 
-Commits da Missão 003 serão adicionados após o gate final.
+O commit documental final da Missão 003 será adicionado após a validação desta atualização.
 
 Repositório público: https://github.com/0xTPZ/LocalCoder. O primeiro push foi concluído em `main`.
 O push da Missão 002 também foi concluído sem force push; `HEAD` e `origin/main` coincidem.

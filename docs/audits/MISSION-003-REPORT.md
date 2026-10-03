@@ -132,10 +132,11 @@ que existiam durante a Missão 002 não foram tocadas, revertidas, commitadas ou
 
 ## 15. Git/GitHub
 
-O commit de implementação e o commit documental serão registrados após o gate final. O remoto é
-`https://github.com/0xTPZ/LocalCoder.git`, público; não será usado force push. Antes do push serão
-confirmados testes, scanner, diff check, arquivos não rastreados, ausência de modelos/binários e
-worktrees externos limpos.
+O remoto é `https://github.com/0xTPZ/LocalCoder.git`, público; não foi usado force push. O commit
+de implementação desta missão é `5382c08` (`feat: add durable checkpoint recovery`). O commit
+documental final será registrado após esta atualização e o push será confirmado no gate final.
+Antes do push foram confirmados testes, scanner, diff check, arquivos não rastreados, ausência de
+modelos/binários e worktrees externos limpos.
 
 ## 16. Próxima missão recomendada
 
