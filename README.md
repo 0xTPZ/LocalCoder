@@ -3,10 +3,11 @@
 LocalCoder é um projeto open source em fundação para um agente local autônomo orientado a
 projetos, roadmaps e missões. O mantenedor público é **0xTPZ**.
 
-As Missões 001, 002 e 003 formam a fundação: inventário, arquitetura, schemas versionados,
-validação, redaction, IDs estáveis, UTC, idempotência, persistência JSON atômica, checkpoints
-duráveis, journal, locking e recuperação segura. O projeto ainda não
-implementa um agente completo, não baixa modelos, não executa comandos de projetos externos e não
+As Missões 001–003 formam a fundação: inventário, arquitetura, schemas versionados, validação,
+redaction, IDs estáveis, UTC, idempotência, persistência JSON atômica, checkpoints duráveis,
+journal, locking e recuperação segura. A Missão 004 adiciona Model Backend, Model Gateway,
+structured output validado e o primeiro laboratório real local. O projeto ainda não implementa um
+agente completo, não escolhe modelo definitivo, não executa comandos de projetos externos e não
 ativa automação contínua.
 
 ## Estado da fundação
@@ -25,6 +26,8 @@ ativa automação contínua.
 - Checkpoint Store durável, Audit Store JSONL, journal operacional, lock conservador de arquivo e
   Recovery Manager fail-safe.
 - Crash Lab com subprocessos reais para interrupção durante escrita e conflito de lock.
+- Model Gateway com adapter HTTP OpenAI-compatible, configuração local-only e erros normalizados.
+- Benchmark Harness v0 e laboratório real opt-in em `tools/run_model_lab.py`.
 - Testes determinísticos da fundação e scanner heurístico de segredos.
 
 ## Começar
@@ -60,7 +63,10 @@ projeto. A instalação editável modifica somente o ambiente virtual local, que
 - [Relatório da Missão 001](docs/audits/MISSION-001-REPORT.md)
 - [Relatório da Missão 002](docs/audits/MISSION-002-REPORT.md)
 - [Relatório da Missão 003](docs/audits/MISSION-003-REPORT.md)
+- [Relatório da Missão 004](docs/audits/MISSION-004-REPORT.md)
 - [Missão 003](docs/missions/003-durable-recovery.md)
+- [Missão 004](docs/missions/004-model-gateway.md)
+- [Configuração segura de gateway](configs/model-gateway.example.json)
 - [Schemas](schemas/README.md)
 
 ## Licença

@@ -1,5 +1,42 @@
-"""Adapters de modelo. Nenhum fornecedor é ativado na Missão 001."""
+"""Porta e adapters locais substituíveis para inferência."""
 
-from ..core.contracts import ModelBackend, ModelProfile
+from .base import (
+    BackendCapabilities,
+    BackendHealth,
+    BackendHealthStatus,
+    GenerationRequest,
+    GenerationResult,
+    ModelBackend,
+    ModelProfile,
+)
+from .errors import (
+    BackendTimeoutError,
+    BackendUnavailableError,
+    InvalidBackendResponseError,
+    ModelBackendError,
+    ModelUnavailableError,
+    StructuredOutputError,
+)
+from .gateway import GatewayConfig, ModelGateway
+from .openai_http import OpenAICompatibleBackend
+from .structured import parse_structured_output
 
-__all__ = ["ModelBackend", "ModelProfile"]
+__all__ = [
+    "BackendCapabilities",
+    "BackendHealth",
+    "BackendHealthStatus",
+    "BackendTimeoutError",
+    "BackendUnavailableError",
+    "GenerationRequest",
+    "GenerationResult",
+    "GatewayConfig",
+    "InvalidBackendResponseError",
+    "ModelBackend",
+    "ModelBackendError",
+    "ModelProfile",
+    "ModelUnavailableError",
+    "ModelGateway",
+    "OpenAICompatibleBackend",
+    "parse_structured_output",
+    "StructuredOutputError",
+]

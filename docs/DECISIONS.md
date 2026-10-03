@@ -102,3 +102,22 @@
   nunca repete automaticamente. Recovery somente inspeciona e produz decisão/evidência.
 - **Motivo:** uma ação futura poderá publicar, executar comando ou chamar API; repetir pode ser
   irreversível.
+
+## ADR-014 — Gateway central e adapter HTTP substituível
+
+- **Status:** vigente experimental.
+- **Decisão:** o núcleo chama `ModelGateway`; o primeiro adapter concreto fala HTTP
+  OpenAI-compatible com endpoint configurado. O padrão aceita somente loopback.
+- **Motivo:** provar inferência real sem importar código, modelo, fila ou runtime de AFolha/TopazioAI.
+- **Consequência:** peculiaridades de llama.cpp ficam no adapter/configuração; múltiplos backends,
+  streaming e API remota ficam para missão futura.
+
+## ADR-015 — Baseline CPU antes de promover Vulkan
+
+- **Status:** vigente para a baseline da Missão 004.
+- **Decisão:** usar Qwen3 4B Q4_K_M em `llama.cpp b11344 CPU` como baseline reproduzível; manter
+  Vulkan somente como experimento até resolver a saída ilegível observada.
+- **Motivo:** o mesmo modelo passou A–E no CPU, enquanto o caminho Vulkan respondeu com conteúdo
+  ilegível no host. Não extrapolar qualidade ou estabilidade entre backends.
+- **Consequência:** nenhum modelo é definitivo e as métricas CPU não são comparáveis diretamente
+  com Vulkan.

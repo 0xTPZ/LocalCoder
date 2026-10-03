@@ -23,6 +23,7 @@ venv/
 /var/logs/*
 /var/checkpoints/*
 /var/state/*
+/var/benchmarks/*
 !/var/logs/.gitkeep
 !/var/checkpoints/.gitkeep
 !/var/state/.gitkeep

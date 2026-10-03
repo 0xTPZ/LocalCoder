@@ -13,6 +13,10 @@
 - `AtomicJsonStore` valida o novo estado e só substitui o arquivo anterior após flush/fsync.
 - `FileLock` falha em conflito e não remove lock stale automaticamente; `RecoveryManager` não
   executa ações e bloqueia estado ambíguo/corrompido.
+- `ModelGateway` exige loopback por padrão, não persiste prompt/resposta integral e classifica
+  timeout, indisponibilidade, resposta inválida e structured output inválido.
+- O adapter lê credencial somente de variável explicitamente configurada para transporte, nunca
+  grava seu valor; a configuração versionada de exemplo não contém credenciais.
 - A revisão humana do diff continua obrigatória; scanner sem achados não é prova de ausência de
   segredo.
 - Payloads de auditoria e checkpoint devem ser sanitizados pelo chamador.
@@ -30,6 +34,8 @@
 | Modelo malicioso/artefato não verificado | Não há download/loader | NÃO IMPLEMENTADO |
 | Repetição após crash | Journal + estado AMBIGUOUS sem auto-repeat | PASS na Missão 003 |
 | Concorrência local | Lock exclusivo com stale explícito | PASS na Missão 003 |
+| Runtime/modelo malformado | Adapter fail-closed, validação independente e sem auto-retry | PASS na Missão 004 |
+| Pressão de recurso | Processo experimental temporário e parada explícita | PASS para o laboratório; Resource Manager completo NÃO IMPLEMENTADO |
 
 ## Regras para missões futuras
 
@@ -44,6 +50,7 @@
 
 ## Auditoria de segredos
 
-Os resultados verificáveis estão nos relatórios das Missões 001, 002 e 003. A auditoria é limitada ao
-repositório LocalCoder, exclui binários/modelos e deve ser complementada por revisão do diff e
-checagem do conteúdo enviado ao GitHub.
+Os resultados verificáveis estão nos relatórios das Missões 001–004. A auditoria do Git é limitada
+ao repositório LocalCoder, exclui binários/modelos e deve ser complementada por revisão do diff e
+checagem do conteúdo enviado ao GitHub. O laboratório real usou modelos já existentes fora do
+repositório e não copiou seus artefatos.

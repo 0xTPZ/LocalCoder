@@ -52,9 +52,27 @@ Implementação e evidências: `docs/audits/MISSION-002-REPORT.md`.
 
 Implementação e evidências: `docs/audits/MISSION-003-REPORT.md`.
 
-## Fase 2 — Projeto, roadmap e missão bounded
+## Fase 2 — Inferência local substituível
 
-### Missão 004 — ingestão segura de projeto
+### Missão 004 — concluída
+
+- **Objetivo:** implementar Model Backend, Model Gateway e o primeiro laboratório real sem copiar
+  modelos nem acoplar o núcleo a AFolha/TopazioAI.
+- **Resultado:** `OpenAICompatibleBackend`, gateway local-only, health, timeout, erros,
+  structured output, AuditEvents e Benchmark Harness v0.
+- **Baseline:** Qwen3 4B Q4_K_M em llama.cpp b11344 CPU passou A–E; Vulkan foi reprovado por
+  saída ilegível no host.
+- **Testes:** 45 coletados, 44 passados e 1 integração real opt-in skipped na suíte normal;
+  laboratório real A–E PASS no CPU.
+- **Fora de escopo:** modelo definitivo, Resource Manager completo, agente, shell, scheduler,
+  downloads e edição de projetos.
+- **Rollback:** reverter os commits da missão; nenhum artefato externo foi movido ou alterado.
+
+Implementação e evidências: `docs/audits/MISSION-004-REPORT.md`.
+
+## Fase 3 — Projeto, roadmap e missão bounded
+
+### Missão 005 — ingestão segura de projeto
 
 - **Objetivo:** registrar um projeto e seu roadmap sem executar conteúdo automaticamente.
 - **Riscos:** path traversal, links maliciosos, prompt injection em documentação do projeto,
@@ -63,7 +81,7 @@ Implementação e evidências: `docs/audits/MISSION-003-REPORT.md`.
 - **Testes:** caminhos inválidos, symlinks/junctions, arquivos grandes, encoding e crash.
 - **Rollback:** apagar somente o estado derivado do projeto, preservando fonte externa.
 
-### Missão 005 — motor de missões com pausa/retomada
+### Missão 006 — motor de missões com pausa/retomada
 
 - **Objetivo:** executar uma tarefa bounded, verificar resultado e salvar checkpoint.
 - **Riscos:** loops, ações irreversíveis, estado parcial, reexecução.
@@ -72,64 +90,64 @@ Implementação e evidências: `docs/audits/MISSION-003-REPORT.md`.
 - **Rollback:** reverter checkpoint e artefatos gerados, nunca presumir que comando externo é
   reversível.
 
-## Fase 3 — capacidades controladas
+## Fase 4 — capacidades controladas
 
-### Missão 006 — ferramenta de leitura e análise
+### Missão 007 — ferramenta de leitura e análise
 
 - **Objetivo:** permitir somente leitura delimitada e registrar cada acesso.
 - **Fora de escopo:** escrita e execução de processos.
 - **Aceite:** allowlist de root, limites, redaction, audit trail e testes de evasão.
 
-### Missão 007 — escrita com patch e rollback
+### Missão 008 — escrita com patch e rollback
 
 - **Objetivo:** editar arquivos com diff, backup e validação antes/depois.
 - **Riscos:** sobrescrita, arquivos fora do projeto, segredos, corrupção de encoding.
 - **Aceite:** dry-run, diff obrigatório, confirmação de política, rollback testado.
 
-### Missão 008 — execução de comandos sandboxed
+### Missão 009 — execução de comandos sandboxed
 
 - **Objetivo:** executar comandos explicitamente permitidos com timeout e captura segura.
 - **Fora de escopo:** privilégios elevados e comandos administrativos.
 - **Aceite:** allowlist, ambiente sanitizado, limite de CPU/RAM/tempo, kill e logs sem segredos.
 
-## Fase 4 — backend de modelo e recuperação
+## Fase 5 — backend de modelo e recuperação
 
-### Missão 009 — adapter de modelo substituível
+### Missão 010 — adapter de modelo substituível
 
 - **Objetivo:** implementar um backend experimental atrás da porta existente.
 - **Aceite:** health, timeout, cancelamento, métricas, erro normalizado, shutdown e fixture fake.
 - **Regra:** nenhum modelo será escolhido como definitivo por antecipação.
 
-### Missão 010 — planner/verifier/retry bounded
+### Missão 011 — planner/verifier/retry bounded
 
 - **Objetivo:** planejar ações, verificar evidência e corrigir com limites.
 - **Riscos:** alucinação, loops, deriva de objetivo e custo de recursos.
 - **Aceite:** critérios objetivos, no máximo N tentativas, checkpoint por etapa, auditoria e
   parada humana em risco.
 
-## Fase 5 — Resource Manager
+## Fase 6 — Resource Manager
 
-### Missão 011 — observação sem decisão
+### Missão 012 — observação sem decisão
 
 - **Objetivo:** coletar RAM/CPU/VRAM/processos de forma portable e somente local.
 - **Aceite:** fonte, precisão, indisponibilidade e custo documentados.
 
-### Missão 012 — política de pausa e retomada
+### Missão 013 — política de pausa e retomada
 
 - **Objetivo:** aplicar política baseada em evidência e prioridade.
 - **Aceite:** estados completos, histerese, sleep/resume, liberação de recursos, crash recovery e
   testes sem modelo.
 - **Bloqueio:** não adotar thresholds vindos de outro projeto sem validação específica.
 
-## Fase 6 — operação e comparação
+## Fase 7 — operação e comparação
 
-### Missão 013 — benchmark harness
+### Missão 014 — benchmark harness
 
 - **Objetivo:** comparar qualidade, raciocínio, ferramentas, recuperação, velocidade, RAM/VRAM,
   contexto e estabilidade sob condições registradas.
 - **Aceite:** fixtures, protocolo, resultados reproduzíveis e licença/proveniência.
 
-### Missão 014 — operação contínua segura
+### Missão 015 — operação contínua segura
 
 - **Objetivo:** scheduler, checkpoints de longo prazo, handoff, logs rotativos e observabilidade.
 - **Aceite:** crash/reboot, pausa por uso do computador, retomada e operação sem exposição de

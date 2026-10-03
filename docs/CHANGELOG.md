@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 — 2026-10-03
+
+- Adicionado Model Backend contract executável, `OpenAICompatibleBackend` e `ModelGateway`.
+- Adicionados timeout, health, capabilities, erros normalizados, structured output e AuditEvents
+  de inferência sem persistir prompts/respostas.
+- Adicionado Benchmark Harness v0, configuração segura de exemplo e laboratório real opt-in.
+- Registrada baseline Qwen3 4B CPU `PASS` e falha técnica do caminho Vulkan.
+
 ## 0.3.0 — 2026-10-03
 
 - Adicionado `CheckpointStore` durável com create/read/replace/enumerate/active e validação.

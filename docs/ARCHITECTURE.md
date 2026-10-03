@@ -3,9 +3,9 @@
 ## Intenção
 
 LocalCoder deve evoluir de um executor local controlado para um agente capaz de reconstruir
-contexto, executar missões bounded e retomar trabalho com checkpoints. As Missões 001, 002 e 003
-estabelecem fronteiras, estado persistente e recuperação fail-safe; não existe ainda um loop
-autônomo.
+contexto, executar missões bounded e retomar trabalho com checkpoints. As Missões 001–004
+estabelecem fronteiras, estado persistente, recuperação fail-safe e uma porta de inferência real;
+não existe ainda um loop autônomo.
 
 ## Fluxo alvo
 
@@ -24,7 +24,7 @@ O fluxo acima é visão de produto, não uma declaração de funcionalidade impl
 | Área | Fundação criada | Estado nesta missão |
 |---|---|---|
 | `core` | Tipos de request/result, estados e contratos comuns | PASS |
-| `model_backends` | Porta `ModelBackend` e `ModelProfile` | Somente contrato; adapter não implementado |
+| `model_backends` | Contrato, adapter HTTP OpenAI-compatible e Model Gateway | PASS experimental local; modelo/runtimes substituíveis |
 | `resource_manager` | Snapshot, lease e porta de estados | Contrato; heurísticas NÃO IMPLEMENTADAS |
 | `agents` | Contexto e porta de loop | Contrato; loop NÃO IMPLEMENTADO |
 | `capabilities` | Enum de capacidades e allowlist deny-by-default | Política em memória |
@@ -36,16 +36,23 @@ O fluxo acima é visão de produto, não uma declaração de funcionalidade impl
 | `persistence` | `AtomicJsonStore` com validação, fsync e `os.replace` | PASS na Missão 002 |
 | `state` | UTC, IDs estáveis, redaction, checkpoint e idempotência | PASS na Missão 002 |
 | `recovery` | Journal, Recovery Manager e estados de restart | PASS na Missão 003 |
-| `benchmarks` | Convenções documentais | Harness NÃO IMPLEMENTADO |
+| `benchmarks` | Convenções documentais | Harness v0 PASS; métricas de hardware parciais |
 
 ## Fronteiras
 
 ### Backend de modelo
 
-O núcleo conhece apenas capacidades declaradas e geração normalizada. Um backend concreto deverá
-ser selecionável por configuração/política, reportar perfil, expor falhas sem vazar segredos e
-liberar seus recursos de modo idempotente. Qwen, llama.cpp, APIs ou qualquer outro runtime são
-detalhes substituíveis.
+O núcleo conhece apenas capacidades declaradas e geração normalizada. `ModelGateway` seleciona o
+backend por configuração, verifica health, aplica timeout, normaliza uso/timing e audita falhas.
+`OpenAICompatibleBackend` é o primeiro adapter experimental; endpoint, runtime e modelo são
+configuráveis e o padrão exige loopback. Qwen, llama.cpp, APIs ou qualquer outro runtime são
+detalhes substituíveis, não dependências do núcleo.
+
+### Laboratório de modelo
+
+`BenchmarkHarness` executa casos bounded sem persistir prompt ou resposta integral. Structured
+output é parseado e validado independentemente do runtime. Métricas ausentes permanecem
+`NOT_TESTED`; não há inferência de CPU/GPU/VRAM a partir de valores aproximados.
 
 ### Resource Manager
 
@@ -128,6 +135,7 @@ encontrada. Timestamps são UTC internamente e serializados em ISO-8601 com sufi
 ## Não implementado
 
 Não há planner, executor de comandos, sandbox, loop de reparo, scheduler, journal transacional de
-ações externas, locking distribuído, backup remoto, Git automation, navegador, SSH, APIs, e-mail,
-redes sociais, carregamento de modelo ou coleta de métricas de hardware dentro do LocalCoder. Isso
-é intencional e está coberto no roadmap.
+ações externas, locking distribuído, backup remoto, Git automation, navegador, SSH, APIs remotas,
+e-mail, redes sociais, Model Manager, seleção definitiva de modelo ou coleta completa de métricas
+de hardware. O runtime desta missão foi um processo externo iniciado explicitamente e não é
+gerenciado continuamente pelo LocalCoder.

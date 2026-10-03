@@ -1,32 +1,33 @@
 # Handoff operacional
 
-Atualizado em 2026-10-03, Missão 003.
+Atualizado em 2026-10-03, Missão 004.
 
 ## Estado atual
 
-`PASS` para a implementação da Missão 003 em validação local: Checkpoint Store, Audit Store,
-journal, locking conservador, Recovery Manager e Crash Lab. `NOT TESTED` para inferência,
-execução de comandos, scheduler, Resource Manager real, locking distribuído, backup remoto e
-recuperação de ações externas reais.
+`PASS` para Model Backend, Model Gateway, adapter HTTP OpenAI-compatible, structured output,
+AuditEvents de inferência, Benchmark Harness v0 e laboratório real CPU A–E. `FAIL` técnico
+documentado para o caminho Vulkan no host: o runtime respondeu com saída ilegível. `NOT TESTED`
+para streaming/TTFT, CPU/GPU/VRAM portáveis, API remota, Resource Manager completo, Model Manager,
+agente autônomo, shell, scheduler e edição de projetos.
+
+## Infraestrutura observada
+
+- `llama.cpp 0.5.0-dev`, build `b11344`, commit `ec7630a64`, CPU e Vulkan, em `E:\TopazioAI`.
+- Qwen3 4B/8B/14B GGUF e Q3_K_L foram somente inventariados; nenhum modelo foi copiado.
+- Qwen3 4B Q4_K_M foi usado como experimento: CPU passou A–E; Vulkan falhou por saída ilegível.
+- Nenhum `llama-server` fica ativo após o laboratório; endpoints experimentais 18080/18081 são
+  loopback e foram encerrados.
+- TopazioAI resource controller, worker, fila e segredo não foram iniciados ou alterados.
 
 ## O que existe
 
-- Repositório em `E:\LocalCoder`.
-- Pacote `src/localcoder` com contratos de modelo, recursos, capacidades, projeto, missão,
-  checkpoints e auditoria.
-- Testes determinísticos em `tests/test_foundation.py`.
-- Schemas v1 em `schemas/v1/` e `SchemaRegistry` em `src/localcoder/schemas/`.
-- `AtomicJsonStore` em `src/localcoder/persistence/`.
-- Redaction, UTC, IDs, checkpoint e idempotência em `src/localcoder/state/`.
-- Testes adversariais em `tests/test_mission002.py`.
-- `CheckpointStore` em `src/localcoder/checkpoints/store.py`.
-- `AuditStore` em `src/localcoder/audit/store.py`.
-- `JournalStore` em `src/localcoder/mission_engine/journal.py`.
-- `FileLock`/JSONL em `src/localcoder/persistence/`.
-- `RecoveryManager` em `src/localcoder/recovery/`.
-- Crash Lab em `tests/test_mission003.py` e `tests/crash_helpers.py`.
-- Scanner em `tools/check_secrets.py`.
-- Roadmap e documentos de segurança/arquitetura/decisões.
+- `src/localcoder/model_backends/`: contratos, erros, adapter HTTP, structured output e gateway.
+- `src/localcoder/benchmarks/`: `BenchmarkHarness` e snapshot de RAM com `NOT_TESTED` explícito.
+- `configs/model-gateway.example.json`: configuração sem credenciais e local-only.
+- `tools/run_model_lab.py`: laboratório A–E real, opt-in e sem persistência de prompts/respostas.
+- `tests/test_mission004.py`: testes determinísticos com servidor HTTP falso.
+- `tests/test_model_integration.py`: integração real opt-in; não entra como dependência da suíte.
+- `docs/audits/MISSION-004-REPORT.md`: evidência completa e baseline.
 
 ## Comandos de verificação
 
@@ -39,40 +40,29 @@ git diff --check
 git status --short
 ```
 
+Laboratório real, somente após iniciar explicitamente um runtime local já existente:
+
+```powershell
+python tools\run_model_lab.py --config configs\model-gateway.example.json `
+  --endpoint http://127.0.0.1:18081 --runtime "llama.cpp b11344 CPU" `
+  --output-dir var\benchmarks\mission004-cpu
+```
+
 ## Limites importantes
 
-- Não baixar modelos.
+- Não baixar, mover ou versionar modelos.
 - Não alterar AFolha, TopazioAI ou outros projetos.
-- Não ativar Task Scheduler, runtime de modelo ou servidor local.
-- Licença: Apache License 2.0 em `LICENSE`.
-- Nenhuma ação externa é repetida automaticamente após `ACTION_STARTED` sem terminal; o recovery
-  classifica `AMBIGUOUS` e aguarda decisão humana.
+- Não ativar Task Scheduler, controller, runtime permanente ou servidor público.
+- Não registrar prompts/respostas integrais em audit ou benchmark.
+- Nenhuma ação externa é repetida automaticamente após falha ou crash.
 
 ## Git e GitHub
 
-O GitHub CLI continua autenticado como `0xTPZ`; o repositório público existente é
-https://github.com/0xTPZ/LocalCoder. O push da Missão 003 foi concluído após suíte, scanner, diff,
-arquivos não rastreados, ausência de modelos/binários grandes e worktrees externos limpos.
-
-Commits locais atuais:
-
-- `7bd942c0a8367ef0f4695ffc9b029c3e48a5a07f` — `feat: establish LocalCoder foundation`
-- `ac02241d2d7d2624ce63f825de43b35033bbce04` — `docs: finalize Mission 001 evidence`
-- `a3ee05aa7d370010f0c584a74109c77b52752f46` — `docs: record public repository handoff`
-- `941833a8d2cca8e4a4c67e6691b1d3cb391aefa8` — `feat: add versioned state persistence foundation`
-- `14a5892460cba1be6996e5598abd89745e9070c0` — `docs: finalize Mission 002 evidence`
-- `5382c08` — `feat: add durable checkpoint recovery`
-- `c3d9315` — `docs: finalize Mission 003 evidence`
-
-Esta sincronização final do relatório/handoff será registrada no commit seguinte; o gate pós-push de
-`c3d9315` confirmou `HEAD = origin/main`, sem force push.
-
-Repositório público: https://github.com/0xTPZ/LocalCoder. O primeiro push foi concluído em `main`.
-O push da Missão 002 também foi concluído sem force push; `HEAD` e `origin/main` coincidem.
-No início da Missão 003, AFolha e TopazioAI estavam limpos. A Missão 003 não alterou nenhum
-projeto externo; o gate final deve confirmar ambos novamente.
+O repositório público é https://github.com/0xTPZ/LocalCoder. Os commits da Missão 004 e o HEAD
+final serão preenchidos após o gate final; não usar force push. Antes do push devem passar suíte,
+scanner, compilação, schemas, diff check, artefatos proibidos e worktrees externos.
 
 ## Próxima missão recomendada
 
-Missão 004: ingestão segura de projeto sem execução automática, com root canônico, limites e
-proteção contra path traversal/prompt injection. Não começar pelo loop autônomo.
+Missão 005: ingestão segura de projeto, com root canônico, manifesto, limites, exclusões, encoding
+e proteção contra path traversal/prompt injection. Não iniciar nesta missão.

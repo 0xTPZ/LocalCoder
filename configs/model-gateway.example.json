@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "backend_id": "llama-cpp-local",
+  "runtime": "llama.cpp b11344",
+  "endpoint": "http://127.0.0.1:18080",
+  "model_id": "qwen3-4b-q4_k_m",
+  "timeout_seconds": 120,
+  "context_window_tokens": 2048,
+  "structured_output_mode": "json_object",
+  "local_only": true,
+  "preflight_health": true,
+  "generation_parameters": {
+    "temperature": 0.0,
+    "top_p": 0.8,
+    "top_k": 20,
+    "min_p": 0.0
+  }
+}
