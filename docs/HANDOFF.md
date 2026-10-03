@@ -4,10 +4,12 @@ Atualizado em 2026-10-03, Missão 002.
 
 ## Estado atual
 
-`PASS` para a Missão 002: schemas v1, validador controlado, redaction, IDs estáveis, UTC,
-idempotência, checkpoint formal, persistência JSON atômica e testes adversariais. `NOT TESTED`
-para inferência, execução de comandos, scheduler, Resource Manager real, store especializado de
-longa duração, integração externa e recuperação após crash do processo.
+`PASS` para a implementação da Missão 002: schemas v1, validador controlado, redaction, IDs
+estáveis, UTC, idempotência, checkpoint formal, persistência JSON atômica e testes adversariais.
+`BLOCKED` somente para a limpeza final do worktree TopazioAI, que possui alterações externas não
+commitadas; AFolha está limpo. `NOT TESTED` para inferência, execução de comandos, scheduler,
+Resource Manager real, store especializado de longa duração, integração externa e recuperação
+após crash do processo.
 
 ## O que existe
 
@@ -55,6 +57,8 @@ Commits locais atuais:
 
 Repositório público: https://github.com/0xTPZ/LocalCoder. O primeiro push foi concluído em `main`.
 O push da Missão 002 também foi concluído sem force push; `HEAD` e `origin/main` coincidem.
+No gate final, AFolha permaneceu limpo. TopazioAI apresentou alterações em dois scripts; elas não
+foram tocadas nem revertidas.
 
 ## Próxima missão recomendada
 

@@ -4,7 +4,10 @@ Data: 2026-10-03. Mantenedor: `0xTPZ`.
 
 ## 1. Resultado geral
 
-`PASS` para os critérios da Missão 002 comprovados pelos testes locais e pelo código versionado.
+`PASS` para a implementação e os testes dos critérios da Missão 002. Há um `BLOCKED` separado no
+gate de estado externo: AFolha está limpo, mas TopazioAI apresenta alterações não commitadas em
+dois scripts. Nenhum comando desta missão escreveu nesses caminhos e as alterações foram
+preservadas; ainda assim, a limpeza completa do worktree externo não pode ser declarada.
 Foram implementados schemas JSON v1, validação controlada, redaction, IDs determinísticos, UTC,
 idempotência, checkpoint formal e persistência JSON atômica. O agente autônomo, scheduler e
 inferência continuam fora de escopo.
@@ -129,8 +132,13 @@ worktrees externos.
 
 ## 15. AFolha e TopazioAI
 
-Nenhum arquivo, modelo, segredo, runtime, fila ou configuração desses projetos foi copiado ou
-alterado. A confirmação final deve ser feita com `git status` e `git diff --check` em ambos.
+- AFolha: `PASS`, worktree limpo e `git diff --check` sem saída.
+- TopazioAI: `BLOCKED` para limpeza do worktree; existem alterações não commitadas em
+  `scripts/test-worker-failure-diagnostics.ps1` e `scripts/topazio-ai-worker.ps1` (`3/0` e `4/2`
+  linhas no diff), observadas durante o gate final.
+- Os comandos desta missão para TopazioAI foram somente leitura (`Get-Content`, `rg`, `git status`,
+  `git diff` e consultas de inventário); nenhum arquivo, modelo, segredo, runtime, fila ou
+  configuração foi copiado ou alterado pelo LocalCoder. Os arquivos externos foram preservados.
 
 ## 16. Próxima missão recomendada
 
