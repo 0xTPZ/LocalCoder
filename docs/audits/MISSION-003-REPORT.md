@@ -134,9 +134,10 @@ que existiam durante a Missão 002 não foram tocadas, revertidas, commitadas ou
 
 O remoto é `https://github.com/0xTPZ/LocalCoder.git`, público; não foi usado force push. O commit
 de implementação desta missão é `5382c08` (`feat: add durable checkpoint recovery`). O commit
-documental final será registrado após esta atualização e o push será confirmado no gate final.
-Antes do push foram confirmados testes, scanner, diff check, arquivos não rastreados, ausência de
-modelos/binários e worktrees externos limpos.
+documental principal é `c3d9315` (`docs: finalize Mission 003 evidence`). O push foi confirmado no
+gate pós-push com `HEAD = origin/main = c3d9315`; esta sincronização documental fica registrada no
+commit seguinte. Foram confirmados testes, scanner, diff check, arquivos não rastreados, ausência
+de modelos/binários e worktrees externos limpos.
 
 ## 16. Próxima missão recomendada
 
