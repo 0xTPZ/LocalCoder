@@ -17,6 +17,7 @@
     "result": {"type": ["string", "null"]},
     "reason": {"type": ["string", "null"]},
     "correlation_id": {"type": ["string", "null"]},
+    "sequence": {"type": "integer", "minimum": 1},
     "data": {"type": "object"}
   }
 }

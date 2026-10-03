@@ -37,16 +37,20 @@ automático: cada missão deve ser aprovada/selecionada e terminar com evidênci
 
 Implementação e evidências: `docs/audits/MISSION-002-REPORT.md`.
 
-### Missão 003 — checkpoint e audit trail duráveis
+### Missão 003 — concluída
 
-- **Objetivo:** usar o primitive atômico da Missão 002 para persistir retomada, operações e trilha
-  de decisão com recuperação após crash.
+- **Objetivo:** usar o primitive atômico da Missão 002 para persistir retomada, journal e trilha de
+  decisão com locking e recuperação após crash.
 - **Riscos:** corrupção, duplicidade, exposição de contexto, corrida entre processos.
 - **Tarefas:** store transacional local, locking, recuperação após crash, retenção e exportação.
-- **Aceite:** crash injection, replay sem duplicidade, hash/identidade dos eventos, backup e
-  restauração documentados.
-- **Testes:** concorrência controlada, interrupção em cada etapa, scanner de dados sensíveis.
-- **Rollback:** leitura compatível da versão anterior e restauração de backup testado.
+- **Aceite:** stores especializados, journal de lifecycle, lock concorrente, recovery sem repetição
+  ambígua, truncamento tolerado somente no fim e evidência de subprocessos reais.
+- **Testes:** 37 testes totais, Crash Lab com processos reais, corrupção, schema desconhecido,
+  truncamento, locking e redaction.
+- **Rollback:** reverter os commits da missão preserva a camada da Missão 002; temporários locais
+  não são promovidos automaticamente.
+
+Implementação e evidências: `docs/audits/MISSION-003-REPORT.md`.
 
 ## Fase 2 — Projeto, roadmap e missão bounded
 

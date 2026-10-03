@@ -3,8 +3,9 @@
 LocalCoder é um projeto open source em fundação para um agente local autônomo orientado a
 projetos, roadmaps e missões. O mantenedor público é **0xTPZ**.
 
-As Missões 001 e 002 formam a fundação: inventário, arquitetura, schemas versionados, validação,
-redaction, IDs estáveis, UTC, idempotência e persistência JSON atômica. O projeto ainda não
+As Missões 001, 002 e 003 formam a fundação: inventário, arquitetura, schemas versionados,
+validação, redaction, IDs estáveis, UTC, idempotência, persistência JSON atômica, checkpoints
+duráveis, journal, locking e recuperação segura. O projeto ainda não
 implementa um agente completo, não baixa modelos, não executa comandos de projetos externos e não
 ativa automação contínua.
 
@@ -21,6 +22,9 @@ ativa automação contínua.
   ResourceState, Capability, AuditEvent, BenchmarkResult e ModelBackend.
 - Persistência atômica com validação antes da substituição, redaction centralizada e registry de
   idempotência.
+- Checkpoint Store durável, Audit Store JSONL, journal operacional, lock conservador de arquivo e
+  Recovery Manager fail-safe.
+- Crash Lab com subprocessos reais para interrupção durante escrita e conflito de lock.
 - Testes determinísticos da fundação e scanner heurístico de segredos.
 
 ## Começar
@@ -55,6 +59,8 @@ projeto. A instalação editável modifica somente o ambiente virtual local, que
 - [Handoff](docs/HANDOFF.md)
 - [Relatório da Missão 001](docs/audits/MISSION-001-REPORT.md)
 - [Relatório da Missão 002](docs/audits/MISSION-002-REPORT.md)
+- [Relatório da Missão 003](docs/audits/MISSION-003-REPORT.md)
+- [Missão 003](docs/missions/003-durable-recovery.md)
 - [Schemas](schemas/README.md)
 
 ## Licença

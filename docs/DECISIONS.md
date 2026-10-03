@@ -77,3 +77,28 @@
 - **Decisão:** logs/auditoria/resultados passam por redaction baseada em chaves sensíveis e padrões
   de alto sinal, com `[REDACTED]`; o detector é pequeno e extensível, não universal.
 - **Motivo:** reduzir vazamento acidental sem registrar segredos reais nos testes.
+
+## ADR-011 — JSONL append-only para audit e journal
+
+- **Status:** vigente.
+- **Decisão:** usar um registro JSON por linha, sequência monotônica e `fsync` após cada append.
+- **Motivo:** facilita reconstrução ordenada e permite tolerar somente o último registro truncado,
+  mantendo corrupção anterior visível.
+- **Consequência:** compactação, retenção e rotação ficam para missão posterior.
+
+## ADR-012 — Lock exclusivo sem remoção automática de stale
+
+- **Status:** vigente.
+- **Decisão:** criar lock por `O_EXCL`, registrar PID/host/lock_id e falhar imediatamente em
+  conflito. No Windows, consultar `GetExitCodeProcess`; stale só pode ser removido explicitamente
+  com lock_id correspondente e PID morto.
+- **Motivo:** evitar que uma instância sobrescreva estado de outra e evitar remoção agressiva após
+  PID reuse ou falha de leitura.
+
+## ADR-013 — Recovery fail-safe e ambiguidade humana
+
+- **Status:** vigente.
+- **Decisão:** `ACTION_STARTED` sem `ACTION_COMPLETED`/`ACTION_FAILED` classifica `AMBIGUOUS` e
+  nunca repete automaticamente. Recovery somente inspeciona e produz decisão/evidência.
+- **Motivo:** uma ação futura poderá publicar, executar comando ou chamar API; repetir pode ser
+  irreversível.

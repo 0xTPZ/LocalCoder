@@ -1,15 +1,13 @@
 # Handoff operacional
 
-Atualizado em 2026-10-03, Missão 002.
+Atualizado em 2026-10-03, Missão 003.
 
 ## Estado atual
 
-`PASS` para a implementação da Missão 002: schemas v1, validador controlado, redaction, IDs
-estáveis, UTC, idempotência, checkpoint formal, persistência JSON atômica e testes adversariais.
-`BLOCKED` somente para a limpeza final do worktree TopazioAI, que possui alterações externas não
-commitadas; AFolha está limpo. `NOT TESTED` para inferência, execução de comandos, scheduler,
-Resource Manager real, store especializado de longa duração, integração externa e recuperação
-após crash do processo.
+`PASS` para a implementação da Missão 003 em validação local: Checkpoint Store, Audit Store,
+journal, locking conservador, Recovery Manager e Crash Lab. `NOT TESTED` para inferência,
+execução de comandos, scheduler, Resource Manager real, locking distribuído, backup remoto e
+recuperação de ações externas reais.
 
 ## O que existe
 
@@ -21,6 +19,12 @@ após crash do processo.
 - `AtomicJsonStore` em `src/localcoder/persistence/`.
 - Redaction, UTC, IDs, checkpoint e idempotência em `src/localcoder/state/`.
 - Testes adversariais em `tests/test_mission002.py`.
+- `CheckpointStore` em `src/localcoder/checkpoints/store.py`.
+- `AuditStore` em `src/localcoder/audit/store.py`.
+- `JournalStore` em `src/localcoder/mission_engine/journal.py`.
+- `FileLock`/JSONL em `src/localcoder/persistence/`.
+- `RecoveryManager` em `src/localcoder/recovery/`.
+- Crash Lab em `tests/test_mission003.py` e `tests/crash_helpers.py`.
 - Scanner em `tools/check_secrets.py`.
 - Roadmap e documentos de segurança/arquitetura/decisões.
 
@@ -30,6 +34,7 @@ após crash do processo.
 Set-Location E:\LocalCoder
 python -m unittest discover -s tests -v
 python tools\check_secrets.py
+python -m compileall -q src tests tools
 git diff --check
 git status --short
 ```
@@ -40,6 +45,8 @@ git status --short
 - Não alterar AFolha, TopazioAI ou outros projetos.
 - Não ativar Task Scheduler, runtime de modelo ou servidor local.
 - Licença: Apache License 2.0 em `LICENSE`.
+- Nenhuma ação externa é repetida automaticamente após `ACTION_STARTED` sem terminal; o recovery
+  classifica `AMBIGUOUS` e aguarda decisão humana.
 
 ## Git e GitHub
 
@@ -55,12 +62,14 @@ Commits locais atuais:
 - `941833a8d2cca8e4a4c67e6691b1d3cb391aefa8` — `feat: add versioned state persistence foundation`
 - `14a5892460cba1be6996e5598abd89745e9070c0` — `docs: finalize Mission 002 evidence`
 
+Commits da Missão 003 serão adicionados após o gate final.
+
 Repositório público: https://github.com/0xTPZ/LocalCoder. O primeiro push foi concluído em `main`.
 O push da Missão 002 também foi concluído sem force push; `HEAD` e `origin/main` coincidem.
-No gate final, AFolha permaneceu limpo. TopazioAI apresentou alterações em dois scripts; elas não
-foram tocadas nem revertidas.
+No início da Missão 003, AFolha e TopazioAI estavam limpos. A Missão 003 não alterou nenhum
+projeto externo; o gate final deve confirmar ambos novamente.
 
 ## Próxima missão recomendada
 
-Missão 003: persistência especializada de checkpoints/audit trail e recuperação após crash usando
-o primitive atômico da Missão 002. Não começar pelo loop autônomo.
+Missão 004: ingestão segura de projeto sem execução automática, com root canônico, limites e
+proteção contra path traversal/prompt injection. Não começar pelo loop autônomo.

@@ -76,3 +76,9 @@ class AtomicJsonStore:
         except SchemaError as exc:
             raise StateCorruptionError(f"persisted state failed validation: {self.path}: {exc}") from exc
         return payload
+
+    def temporary_paths(self) -> tuple[Path, ...]:
+        """Lista temporários abandonados sem promovê-los automaticamente."""
+        if not self.path.parent.exists():
+            return ()
+        return tuple(sorted(self.path.parent.glob(f".{self.path.name}.*.tmp")))

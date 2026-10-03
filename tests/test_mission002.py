@@ -65,7 +65,7 @@ class Mission002Tests(unittest.TestCase):
 
     def test_all_v1_schemas_validate(self) -> None:
         documents = self.documents()
-        self.assertEqual(len(self.registry.names()), 12)
+        self.assertEqual(len(self.registry.names()), 13)
         self.registry.validate_many(documents.items())
 
     def test_missing_required_and_unknown_properties_are_rejected(self) -> None:

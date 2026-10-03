@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.0 — 2026-10-03
+
+- Adicionado `CheckpointStore` durável com create/read/replace/enumerate/active e validação.
+- Adicionado `AuditStore` JSONL append-only com sequência, deduplicação, redaction e tolerância
+  somente ao último registro truncado.
+- Adicionado `JournalStore` com lifecycle de ações e detecção de operação interrompida.
+- Adicionado `FileLock` com conflito explícito, metadata, stale detection conservadora e suporte
+  nativo a liveness no Windows.
+- Adicionado `RecoveryManager` com estados CLEAN, RECOVERABLE, AMBIGUOUS, CORRUPTED e BLOCKED.
+- Adicionado Crash Lab com subprocessos reais para morte durante escrita e conflito de lock.
+- Corrigido detector Windows de lock stale após `os.kill(pid, 0)` provar-se insuficiente.
+- Atualizada a documentação de arquitetura, segurança, decisões, roadmap e handoff.
+
 ## 0.2.0 — 2026-10-03
 
 - Adotada Apache License 2.0.

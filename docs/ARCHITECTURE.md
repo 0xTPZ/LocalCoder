@@ -3,8 +3,9 @@
 ## Intenção
 
 LocalCoder deve evoluir de um executor local controlado para um agente capaz de reconstruir
-contexto, executar missões bounded e retomar trabalho com checkpoints. As Missões 001 e 002
-estabelecem fronteiras e estado persistente; não existe ainda um loop autônomo.
+contexto, executar missões bounded e retomar trabalho com checkpoints. As Missões 001, 002 e 003
+estabelecem fronteiras, estado persistente e recuperação fail-safe; não existe ainda um loop
+autônomo.
 
 ## Fluxo alvo
 
@@ -29,11 +30,12 @@ O fluxo acima é visão de produto, não uma declaração de funcionalidade impl
 | `capabilities` | Enum de capacidades e allowlist deny-by-default | Política em memória |
 | `project` | `ProjectSpec` | Modelo mínimo |
 | `mission_engine` | `MissionSpec` e porta | Scheduler/runner NÃO IMPLEMENTADO |
-| `checkpoints` | Estrutura compatível e `CheckpointRecord` versionável | Store especializado NÃO IMPLEMENTADO |
-| `audit` | Evento estruturado, redaction e adapter em memória | Store durável especializado NÃO IMPLEMENTADO |
+| `checkpoints` | Estrutura compatível e `CheckpointRecord` versionável | `CheckpointStore` durável PASS na Missão 003 |
+| `audit` | Evento estruturado, redaction e adapter em memória | `AuditStore` JSONL append-only PASS na Missão 003 |
 | `schemas` | JSON Schema v1, registry e validador controlado | PASS na Missão 002 |
 | `persistence` | `AtomicJsonStore` com validação, fsync e `os.replace` | PASS na Missão 002 |
 | `state` | UTC, IDs estáveis, redaction, checkpoint e idempotência | PASS na Missão 002 |
+| `recovery` | Journal, Recovery Manager e estados de restart | PASS na Missão 003 |
 | `benchmarks` | Convenções documentais | Harness NÃO IMPLEMENTADO |
 
 ## Fronteiras
@@ -79,6 +81,34 @@ faz flush e `fsync`, e usa `os.replace`. No Windows, a substituição no mesmo v
 atômica disponível; o diretório não é submetido a uma operação POSIX de `fsync`. Falhas simuladas
 antes da troca preservam o último estado válido.
 
+### Checkpoint Store
+
+`CheckpointStore` encapsula todos os acessos a arquivos de checkpoint. `create` é exclusivo,
+`replace` exige uma entrada existente, `get`, `enumerate`, `validate` e `active` retornam apenas
+documentos validados. Um lock de diretório cobre criação/substituição; temporários abandonados são
+reportados e nunca promovidos automaticamente.
+
+### Audit Store e journal
+
+`AuditStore` grava eventos redigidos em JSONL, com sequência monotônica e deduplicação por
+`event_id`. `JournalStore` grava `ACTION_PLANNED`, `ACTION_STARTED`, `ACTION_PAUSED`,
+`ACTION_COMPLETED` e `ACTION_FAILED`. A ordem é reconstruída por `sequence`. Somente erro de
+decodificação no último registro é tolerado; erro de schema, versão desconhecida ou corrupção em
+registro anterior bloqueia a confiança no arquivo.
+
+### Locking
+
+`FileLock` usa criação exclusiva (`O_CREAT|O_EXCL`) de um arquivo de metadados no mesmo volume,
+com `lock_id`, PID, host e timestamp. Conflito é imediato e não há espera implícita. Um lock
+obsoleto não é removido automaticamente: a remoção exige `lock_id` esperado e confirmação via
+`OpenProcess/GetExitCodeProcess` no Windows de que o PID não está vivo.
+
+### Recovery Manager
+
+`RecoveryManager.inspect()` somente lê, valida e classifica: `CLEAN`, `RECOVERABLE`, `AMBIGUOUS`,
+`CORRUPTED` ou `BLOCKED`. `ACTION_STARTED`/`ACTION_PAUSED` sem evento terminal vira `AMBIGUOUS` e
+tem recomendação `STOP_AND_REQUEST_HUMAN_DECISION`; nenhuma ação externa é repetida.
+
 ### Idempotência e tempo
 
 IDs operacionais são UUIDv5 determinísticos derivados de um namespace LocalCoder, tipo e partes
@@ -97,7 +127,7 @@ encontrada. Timestamps são UTC internamente e serializados em ISO-8601 com sufi
 
 ## Não implementado
 
-Não há planner, executor de comandos, sandbox, loop de reparo, scheduler, store especializado de
-longa duração para operações/checkpoints/auditoria, Git automation, navegador, SSH, APIs, e-mail,
+Não há planner, executor de comandos, sandbox, loop de reparo, scheduler, journal transacional de
+ações externas, locking distribuído, backup remoto, Git automation, navegador, SSH, APIs, e-mail,
 redes sociais, carregamento de modelo ou coleta de métricas de hardware dentro do LocalCoder. Isso
 é intencional e está coberto no roadmap.

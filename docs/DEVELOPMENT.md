@@ -8,7 +8,7 @@
   padrão.
 
 Node.js, runtimes de inferência, GPUs e ferramentas externas não são necessários para executar os
-testes das Missões 001 e 002.
+testes das Missões 001, 002 e 003.
 
 ## Verificação local
 
@@ -39,6 +39,10 @@ Para validar schemas diretamente:
 ```powershell
 python -c "import sys; sys.path.insert(0, 'src'); from localcoder.schemas import SchemaRegistry; print(SchemaRegistry().names())"
 ```
+
+O Crash Lab é executado dentro da suíte e usa somente subprocessos próprios em diretórios
+temporários. Ele pode criar locks/temporários abandonados nesses diretórios, que são removidos
+pela limpeza do teste; não mata processos do sistema.
 
 ## Dependências
 

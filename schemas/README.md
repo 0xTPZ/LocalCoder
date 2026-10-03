@@ -7,4 +7,6 @@ controlada.
 
 Os schemas usam JSON Schema Draft 2020-12 e são validados pelo validador mínimo próprio em
 `src/localcoder/schemas/validator.py`. A implementação cobre deliberadamente apenas o subconjunto
-necessário nesta missão, sem introduzir dependência externa.
+necessário nesta missão, sem introduzir dependência externa. Além dos documentos de domínio, v1
+inclui `journal_entry`; registros JSONL com schema desconhecido nunca são ignorados como se fossem
+um truncamento comum.

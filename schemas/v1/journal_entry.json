@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localcoder.dev/schemas/journal-entry/v1",
+  "title": "LocalCoder Journal Entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "journal_id", "sequence", "operation_id", "action_id", "event", "occurred_at", "correlation_id", "data"],
+  "properties": {
+    "schema_version": {"type": "integer", "minimum": 1},
+    "journal_id": {"type": "string", "minLength": 1},
+    "sequence": {"type": "integer", "minimum": 1},
+    "operation_id": {"type": "string", "minLength": 1},
+    "action_id": {"type": "string", "minLength": 1},
+    "event": {"type": "string", "enum": ["ACTION_PLANNED", "ACTION_STARTED", "ACTION_PAUSED", "ACTION_COMPLETED", "ACTION_FAILED"]},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "correlation_id": {"type": ["string", "null"]},
+    "data": {"type": "object"}
+  }
+}
