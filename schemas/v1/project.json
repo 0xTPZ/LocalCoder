@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localcoder.dev/schemas/project/v1",
+  "title": "LocalCoder Project",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "root_path", "created_at", "status"],
+  "properties": {
+    "schema_version": {"type": "integer", "minimum": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "root_path": {"type": "string", "minLength": 1},
+    "roadmap_id": {"type": ["string", "null"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "status": {"type": "string", "enum": ["ACTIVE", "PAUSED", "ARCHIVED"]},
+    "metadata": {"type": "object"}
+  }
+}

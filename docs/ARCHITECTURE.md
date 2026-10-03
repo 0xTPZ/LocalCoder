@@ -3,8 +3,8 @@
 ## Intenção
 
 LocalCoder deve evoluir de um executor local controlado para um agente capaz de reconstruir
-contexto, executar missões bounded e retomar trabalho com checkpoints. A Missão 001 estabelece
-fronteiras; não existe ainda um loop autônomo.
+contexto, executar missões bounded e retomar trabalho com checkpoints. As Missões 001 e 002
+estabelecem fronteiras e estado persistente; não existe ainda um loop autônomo.
 
 ## Fluxo alvo
 
@@ -29,8 +29,11 @@ O fluxo acima é visão de produto, não uma declaração de funcionalidade impl
 | `capabilities` | Enum de capacidades e allowlist deny-by-default | Política em memória |
 | `project` | `ProjectSpec` | Modelo mínimo |
 | `mission_engine` | `MissionSpec` e porta | Scheduler/runner NÃO IMPLEMENTADO |
-| `checkpoints` | Estrutura e porta de armazenamento | Persistência NÃO IMPLEMENTADA |
-| `audit` | Evento, porta e adapter em memória para teste | Durabilidade NÃO IMPLEMENTADA |
+| `checkpoints` | Estrutura compatível e `CheckpointRecord` versionável | Store especializado NÃO IMPLEMENTADO |
+| `audit` | Evento estruturado, redaction e adapter em memória | Store durável especializado NÃO IMPLEMENTADO |
+| `schemas` | JSON Schema v1, registry e validador controlado | PASS na Missão 002 |
+| `persistence` | `AtomicJsonStore` com validação, fsync e `os.replace` | PASS na Missão 002 |
+| `state` | UTC, IDs estáveis, redaction, checkpoint e idempotência | PASS na Missão 002 |
 | `benchmarks` | Convenções documentais | Harness NÃO IMPLEMENTADO |
 
 ## Fronteiras
@@ -58,8 +61,29 @@ explícita conceder a capacidade necessária para uma tarefa específica.
 ### Checkpoints e auditoria
 
 Checkpoint é memória de retomada; audit trail é histórico de decisão/ação. São conceitos distintos.
-O payload deve ser sanitizado e nunca conter credenciais, cookies, dumps ou conteúdo que não seja
-necessário para reconstrução.
+`CheckpointRecord` formaliza projeto, roadmap, missão, task, action, etapa concluída, pausa,
+próxima ação, backend/modelo e capacidades ativas. `AuditEvent` formaliza actor, projeto, missão,
+action, resultado, razão, timestamp e correlation ID. O payload passa por redaction antes de ser
+exposto por `to_document()` ou armazenado pelo adapter em memória.
+
+### Schemas e compatibilidade
+
+Cada documento persistente tem `schema_version` inteiro. A versão atual é v1. O `SchemaRegistry`
+rejeita versão futura desconhecida, versão não suportada, campos obrigatórios ausentes, tipos
+inválidos e propriedades desconhecidas. Não há migração silenciosa nesta fase.
+
+### Persistência atômica
+
+`AtomicJsonStore` valida o objeto, cria um temporário no mesmo diretório/volume, escreve UTF-8,
+faz flush e `fsync`, e usa `os.replace`. No Windows, a substituição no mesmo volume é a operação
+atômica disponível; o diretório não é submetido a uma operação POSIX de `fsync`. Falhas simuladas
+antes da troca preservam o último estado válido.
+
+### Idempotência e tempo
+
+IDs operacionais são UUIDv5 determinísticos derivados de um namespace LocalCoder, tipo e partes
+canônicas. Uma operação é escopada por `(action_id, idempotency_key)` e não inicia novamente quando
+encontrada. Timestamps são UTC internamente e serializados em ISO-8601 com sufixo `Z`.
 
 ## Decisões de fundação
 
@@ -73,6 +97,7 @@ necessário para reconstrução.
 
 ## Não implementado
 
-Não há planner, executor de comandos, sandbox, loop de reparo, scheduler, persistência durable,
-Git automation, navegador, SSH, APIs, e-mail, redes sociais, carregamento de modelo ou coleta de
-métricas de hardware dentro do LocalCoder. Isso é intencional e está coberto no roadmap.
+Não há planner, executor de comandos, sandbox, loop de reparo, scheduler, store especializado de
+longa duração para operações/checkpoints/auditoria, Git automation, navegador, SSH, APIs, e-mail,
+redes sociais, carregamento de modelo ou coleta de métricas de hardware dentro do LocalCoder. Isso
+é intencional e está coberto no roadmap.

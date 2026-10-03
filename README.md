@@ -3,9 +3,10 @@
 LocalCoder é um projeto open source em fundação para um agente local autônomo orientado a
 projetos, roadmaps e missões. O mantenedor público é **0xTPZ**.
 
-Esta primeira entrega é a Missão 001: inventário técnico, arquitetura inicial, contratos de
-fronteira e documentação operacional. Ela não implementa um agente completo, não baixa modelos,
-não executa comandos de projetos externos e não ativa automação contínua.
+As Missões 001 e 002 formam a fundação: inventário, arquitetura, schemas versionados, validação,
+redaction, IDs estáveis, UTC, idempotência e persistência JSON atômica. O projeto ainda não
+implementa um agente completo, não baixa modelos, não executa comandos de projetos externos e não
+ativa automação contínua.
 
 ## Estado da fundação
 
@@ -16,6 +17,10 @@ não executa comandos de projetos externos e não ativa automação contínua.
   `ERROR` e `WAITING`.
 - Backend de modelo substituível; nenhum modelo é requisito do núcleo.
 - Dados locais, logs e checkpoints ignorados pelo Git.
+- Schemas JSON v1 para Project, Roadmap, Mission, Task, Action, Verification, Checkpoint,
+  ResourceState, Capability, AuditEvent, BenchmarkResult e ModelBackend.
+- Persistência atômica com validação antes da substituição, redaction centralizada e registry de
+  idempotência.
 - Testes determinísticos da fundação e scanner heurístico de segredos.
 
 ## Começar
@@ -49,8 +54,9 @@ projeto. A instalação editável modifica somente o ambiente virtual local, que
 - [Constituição operacional](AGENTS.md)
 - [Handoff](docs/HANDOFF.md)
 - [Relatório da Missão 001](docs/audits/MISSION-001-REPORT.md)
+- [Relatório da Missão 002](docs/audits/MISSION-002-REPORT.md)
+- [Schemas](schemas/README.md)
 
 ## Licença
 
-A licença open source ainda requer decisão humana e, por isso, não foi inventada nesta missão.
-Consulte `docs/DECISIONS.md` antes de publicar um arquivo `LICENSE`.
+Este projeto é distribuído sob a [Apache License 2.0](LICENSE). O mantenedor público é `0xTPZ`.

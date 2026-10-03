@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localcoder.dev/schemas/resource-state/v1",
+  "title": "LocalCoder Resource State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "resource_state_id", "state", "observed_at", "source", "snapshot"],
+  "properties": {
+    "schema_version": {"type": "integer", "minimum": 1},
+    "resource_state_id": {"type": "string", "minLength": 1},
+    "state": {"type": "string", "enum": ["WORKING", "PAUSING", "SLEEPING", "RESUMING", "ERROR", "WAITING"]},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "source": {"type": "string", "minLength": 1},
+    "snapshot": {"type": "object"},
+    "reason": {"type": ["string", "null"]}
+  }
+}

@@ -9,7 +9,7 @@ description = "Fundação de um agente local autônomo orientado a missões."
 readme = "README.md"
 requires-python = ">=3.12"
 authors = [{ name = "0xTPZ" }]
-license = { text = "TBD" }
+license = { text = "Apache-2.0" }
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "Programming Language :: Python :: 3",

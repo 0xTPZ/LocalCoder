@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localcoder.dev/schemas/benchmark-result/v1",
+  "title": "LocalCoder Benchmark Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "benchmark_id", "backend_id", "model_id", "started_at", "finished_at", "status", "metrics", "environment"],
+  "properties": {
+    "schema_version": {"type": "integer", "minimum": 1},
+    "benchmark_id": {"type": "string", "minLength": 1},
+    "backend_id": {"type": "string", "minLength": 1},
+    "model_id": {"type": "string", "minLength": 1},
+    "started_at": {"type": "string", "format": "date-time"},
+    "finished_at": {"type": ["string", "null"], "format": "date-time"},
+    "status": {"type": "string", "enum": ["RUNNING", "PASS", "FAIL", "BLOCKED", "NOT_TESTED"]},
+    "metrics": {"type": "object"},
+    "environment": {"type": "object"},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

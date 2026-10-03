@@ -1,12 +1,13 @@
 # Handoff operacional
 
-Atualizado em 2026-10-03, Missão 001.
+Atualizado em 2026-10-03, Missão 002.
 
 ## Estado atual
 
-`PASS` para a fundação local, documentação e testes descritos no relatório. `NOT TESTED` para
-inferência, execução de comandos, scheduler, Resource Manager real, persistência durável,
-integrações externas e recuperação após crash.
+`PASS` para a Missão 002: schemas v1, validador controlado, redaction, IDs estáveis, UTC,
+idempotência, checkpoint formal, persistência JSON atômica e testes adversariais. `NOT TESTED`
+para inferência, execução de comandos, scheduler, Resource Manager real, store especializado de
+longa duração, integração externa e recuperação após crash do processo.
 
 ## O que existe
 
@@ -14,6 +15,10 @@ integrações externas e recuperação após crash.
 - Pacote `src/localcoder` com contratos de modelo, recursos, capacidades, projeto, missão,
   checkpoints e auditoria.
 - Testes determinísticos em `tests/test_foundation.py`.
+- Schemas v1 em `schemas/v1/` e `SchemaRegistry` em `src/localcoder/schemas/`.
+- `AtomicJsonStore` em `src/localcoder/persistence/`.
+- Redaction, UTC, IDs, checkpoint e idempotência em `src/localcoder/state/`.
+- Testes adversariais em `tests/test_mission002.py`.
 - Scanner em `tools/check_secrets.py`.
 - Roadmap e documentos de segurança/arquitetura/decisões.
 
@@ -32,13 +37,13 @@ git status --short
 - Não baixar modelos.
 - Não alterar AFolha, TopazioAI ou outros projetos.
 - Não ativar Task Scheduler, runtime de modelo ou servidor local.
-- Não escolher licença pública sem decisão humana.
+- Licença: Apache License 2.0 em `LICENSE`.
 
 ## Git e GitHub
 
-O Git local é criado nesta missão. O GitHub CLI foi confirmado autenticado como `0xTPZ`; a criação
-do repositório público depende da etapa explicitamente registrada no relatório e não deve ocorrer
-com segredo no diff.
+O GitHub CLI continua autenticado como `0xTPZ`; o repositório público existente é
+https://github.com/0xTPZ/LocalCoder. O push da Missão 002 só ocorre após suíte, scanner, diff,
+arquivos não rastreados, ausência de modelos/binários grandes e worktrees externos limpos.
 
 Commits locais atuais:
 
@@ -50,5 +55,5 @@ Repositório público: https://github.com/0xTPZ/LocalCoder. O primeiro push foi 
 
 ## Próxima missão recomendada
 
-Missão 002: schemas versionados para projeto, roadmap, missão, ação, resultado, checkpoint e
-evento de auditoria, incluindo redaction e idempotência. Não começar pelo loop autônomo.
+Missão 003: persistência especializada de checkpoints/audit trail e recuperação após crash usando
+o primitive atômico da Missão 002. Não começar pelo loop autônomo.

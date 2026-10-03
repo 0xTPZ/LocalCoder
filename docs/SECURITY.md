@@ -6,6 +6,11 @@
 - Capacidades são enumeradas e negadas por padrão.
 - `.gitignore` exclui ambientes locais, segredos, logs, checkpoints e artefatos grandes.
 - O scanner `tools/check_secrets.py` detecta padrões de alto sinal antes do commit.
+- `localcoder.state.redaction` remove campos sensíveis, bearer/cookie headers, credenciais em URLs,
+  query secrets e padrões de tokens antes de expor eventos/resultados.
+- `AuditEvent.to_document()` e `MemoryAuditTrail.append()` aplicam redaction; testes usam somente
+  fixtures construídas, não segredos reais.
+- `AtomicJsonStore` valida o novo estado e só substitui o arquivo anterior após flush/fsync.
 - A revisão humana do diff continua obrigatória; scanner sem achados não é prova de ausência de
   segredo.
 - Payloads de auditoria e checkpoint devem ser sanitizados pelo chamador.
@@ -18,7 +23,7 @@
 | Ação irreversível | Nenhuma capacidade de escrita/execução ativada | PASS para a fundação |
 | Prompt injection em projeto | Nenhum ingest/agent implementado | Não aplicável ainda |
 | Loop infinito | Não há executor; roadmap exige limites | NÃO IMPLEMENTADO |
-| Corrupção de checkpoint | Não há store durável | NÃO IMPLEMENTADO |
+| Corrupção de estado JSON | Validação, temporário e troca atômica | PASS na Missão 002 |
 | Exposição por rede | Nenhuma integração de rede | PASS para a fundação |
 | Modelo malicioso/artefato não verificado | Não há download/loader | NÃO IMPLEMENTADO |
 
@@ -33,8 +38,8 @@
 7. Parar em modo fail-closed quando autorização, contexto ou integridade forem incertos.
 8. Preservar evidência de falhas e correções.
 
-## Auditoria de segredos da Missão 001
+## Auditoria de segredos
 
-O resultado verificável está no relatório em `docs/audits/MISSION-001-REPORT.md`. A auditoria é
-limitada ao repositório LocalCoder, exclui binários/modelos e deve ser complementada por revisão
-do diff e checagem do conteúdo enviado ao GitHub.
+Os resultados verificáveis estão nos relatórios das Missões 001 e 002. A auditoria é limitada ao
+repositório LocalCoder, exclui binários/modelos e deve ser complementada por revisão do diff e
+checagem do conteúdo enviado ao GitHub.

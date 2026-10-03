@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localcoder.dev/schemas/checkpoint/v1",
+  "title": "LocalCoder Checkpoint",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "checkpoint_id", "project_id", "roadmap_id", "mission_id", "task_id", "action_id", "created_at", "lifecycle_state", "completed_steps", "in_progress_step", "pause_reason", "next_action", "backend_id", "model_id", "active_capabilities", "operation_id"],
+  "properties": {
+    "schema_version": {"type": "integer", "minimum": 1},
+    "checkpoint_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "roadmap_id": {"type": "string", "minLength": 1},
+    "mission_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "action_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "lifecycle_state": {"type": "string", "enum": ["CREATED", "PAUSED", "RESUMABLE", "COMPLETED", "INVALID"]},
+    "completed_steps": {"type": "array", "items": {"type": "string"}},
+    "in_progress_step": {"type": ["string", "null"]},
+    "pause_reason": {"type": ["string", "null"]},
+    "next_action": {"type": ["string", "null"]},
+    "backend_id": {"type": ["string", "null"]},
+    "model_id": {"type": ["string", "null"]},
+    "active_capabilities": {"type": "array", "items": {"type": "string"}},
+    "operation_id": {"type": ["string", "null"]},
+    "payload": {"type": "object"}
+  }
+}

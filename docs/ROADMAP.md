@@ -22,21 +22,25 @@ automático: cada missão deve ser aprovada/selecionada e terminar com evidênci
 
 ## Fase 1 — Contratos executáveis e estado local seguro
 
-### Missão 002 — especificar antes de implementar
+### Missão 002 — concluída
 
 - **Objetivo:** definir schemas versionados de projeto, roadmap, missão, ação, resultado,
   checkpoint e evento de auditoria.
 - **Riscos:** schema rígido demais para evolução; persistência de dados sensíveis.
 - **Tarefas:** escrever schemas, política de compatibilidade, redaction, IDs/idempotência e
   casos de erro.
-- **Aceite:** validação determinística, fixtures válidas/ inválidas, migração documentada,
-  nenhum segredo nos fixtures.
-- **Testes:** unitários, propriedades de idempotência, casos de schema incompatível.
+- **Aceite:** validação determinística, schemas v1, redaction centralizada, persistência atômica,
+  IDs/UTC, idempotência, fixtures válidas/inválidas e nenhum segredo nos fixtures.
+- **Testes:** 20 testes unitários/adversariais, incluindo truncamento, interrupção simulada,
+  schema incompatível, repetição e redaction aninhada.
 - **Rollback:** manter versão anterior de schema e rejeitar novas versões desconhecidas.
+
+Implementação e evidências: `docs/audits/MISSION-002-REPORT.md`.
 
 ### Missão 003 — checkpoint e audit trail duráveis
 
-- **Objetivo:** persistir retomada e trilha de decisão sem perder atomicidade.
+- **Objetivo:** usar o primitive atômico da Missão 002 para persistir retomada, operações e trilha
+  de decisão com recuperação após crash.
 - **Riscos:** corrupção, duplicidade, exposição de contexto, corrida entre processos.
 - **Tarefas:** store transacional local, locking, recuperação após crash, retenção e exportação.
 - **Aceite:** crash injection, replay sem duplicidade, hash/identidade dos eventos, backup e

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localcoder.dev/schemas/audit-event/v1",
+  "title": "LocalCoder Audit Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "event_id", "event_type", "actor", "project_id", "mission_id", "action_id", "occurred_at", "result", "reason", "correlation_id", "data"],
+  "properties": {
+    "schema_version": {"type": "integer", "minimum": 1},
+    "event_id": {"type": "string", "minLength": 1},
+    "event_type": {"type": "string", "minLength": 1},
+    "actor": {"type": "string", "minLength": 1},
+    "project_id": {"type": ["string", "null"]},
+    "mission_id": {"type": ["string", "null"]},
+    "action_id": {"type": ["string", "null"]},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "result": {"type": ["string", "null"]},
+    "reason": {"type": ["string", "null"]},
+    "correlation_id": {"type": ["string", "null"]},
+    "data": {"type": "object"}
+  }
+}

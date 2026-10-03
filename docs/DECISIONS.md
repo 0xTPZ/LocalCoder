@@ -40,9 +40,40 @@
   sociais começam negados e separados.
 - **Motivo:** autonomia não deve significar irreversibilidade ou expansão silenciosa de acesso.
 
-## ADR-006 — Licença pública pendente
+## ADR-006 — Apache License 2.0
 
-- **Status:** decisão humana necessária.
-- **Decisão atual:** não escolher uma licença por inferência; não criar `LICENSE` ainda.
-- **Motivo:** “open source” não determina sozinho MIT, Apache-2.0, GPL ou outra licença.
-- **Próximo passo:** escolher licença antes de anunciar o repositório como pronto para consumo.
+- **Status:** vigente.
+- **Decisão:** distribuir o LocalCoder sob Apache License 2.0, com o texto oficial em `LICENSE`.
+- **Motivo:** decisão explícita da Missão 002, com licença permissiva e concessão de patentes.
+
+## ADR-007 — Versionamento explícito de documentos
+
+- **Status:** vigente.
+- **Decisão:** todo documento persistente possui `schema_version` inteiro no objeto raiz; v1 é a
+  única versão suportada. O registry rejeita versões futuras e versões não suportadas.
+- **Motivo:** evitar interpretação silenciosa de estado incompatível e permitir migrações futuras
+  deliberadas.
+
+## ADR-008 — Persistência JSON atômica no mesmo volume
+
+- **Status:** vigente.
+- **Decisão:** validar antes de gravar, escrever temporário no mesmo diretório, `flush`/`fsync` e
+  `os.replace`; falha antes da troca não altera o último estado válido.
+- **Motivo:** o alvo inicial é Windows e a interrupção durante escrita não pode destruir o estado.
+- **Limitação:** não há `fsync` de diretório POSIX no caminho Windows; crash recovery completo
+  permanece missão posterior.
+
+## ADR-009 — UUIDv5 determinístico e UTC
+
+- **Status:** vigente.
+- **Decisão:** IDs estáveis usam UUIDv5 com namespace LocalCoder e partes canônicas; timestamps
+  usam UTC interno e ISO-8601 com `Z` na persistência.
+- **Motivo:** repetição deve reencontrar a mesma operação, sem depender de nome humano ou relógio
+  local para identidade.
+
+## ADR-010 — Redaction centralizada e fail-safe
+
+- **Status:** vigente.
+- **Decisão:** logs/auditoria/resultados passam por redaction baseada em chaves sensíveis e padrões
+  de alto sinal, com `[REDACTED]`; o detector é pequeno e extensível, não universal.
+- **Motivo:** reduzir vazamento acidental sem registrar segredos reais nos testes.

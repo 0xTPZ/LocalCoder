@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localcoder.dev/schemas/verification/v1",
+  "title": "LocalCoder Verification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "verification_id", "action_id", "status", "verified_at", "evidence"],
+  "properties": {
+    "schema_version": {"type": "integer", "minimum": 1},
+    "verification_id": {"type": "string", "minLength": 1},
+    "action_id": {"type": "string", "minLength": 1},
+    "status": {"type": "string", "enum": ["PASS", "FAIL", "BLOCKED", "NOT_TESTED"]},
+    "verified_at": {"type": "string", "format": "date-time"},
+    "evidence": {"type": "array", "items": {"type": "string"}},
+    "reason": {"type": ["string", "null"]}
+  }
+}

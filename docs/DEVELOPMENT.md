@@ -4,10 +4,11 @@
 
 - Windows ou ambiente compatível com Python 3.12+.
 - Git.
-- Nenhuma dependência de runtime obrigatória para a fundação.
+- Nenhuma dependência de runtime obrigatória; schemas, redaction e persistência usam a biblioteca
+  padrão.
 
 Node.js, runtimes de inferência, GPUs e ferramentas externas não são necessários para executar os
-testes da Missão 001.
+testes das Missões 001 e 002.
 
 ## Verificação local
 
@@ -15,6 +16,7 @@ testes da Missão 001.
 Set-Location E:\LocalCoder
 python -m unittest discover -s tests -v
 python tools\check_secrets.py
+python -m compileall -q src tests tools
 git diff --check
 git status --short
 ```
@@ -31,6 +33,12 @@ Se o pacote for executado diretamente sem instalação, o entrypoint de teste in
 5. Executar testes, scanner, diff check e inspeção de segredos.
 6. Atualizar decisões, changelog e handoff.
 7. Registrar evidência e o resultado `PASS`, `FAIL`, `BLOCKED` ou `NOT TESTED`.
+
+Para validar schemas diretamente:
+
+```powershell
+python -c "import sys; sys.path.insert(0, 'src'); from localcoder.schemas import SchemaRegistry; print(SchemaRegistry().names())"
+```
 
 ## Dependências
 
