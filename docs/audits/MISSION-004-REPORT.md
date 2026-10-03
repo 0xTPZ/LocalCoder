@@ -24,7 +24,7 @@ com `origin/main` antes do trabalho.
 | Runtime | `llama.cpp 0.5.0-dev`, build `b11344`, commit `ec7630a64` | PASS |
 | Binários | Variantes CPU e Vulkan existentes em `E:\TopazioAI\runtime\...\b11344` | PASS |
 | Ollama/LM Studio/vLLM | não encontrados no PATH/estado auditado | NOT TESTED |
-| Listeners de inferência | portas 11434, 1234, 3000, 8000, 8080, 18080, 18081, 18083 e 18150 não tinham listener ao final | PASS |
+| Listeners de inferência | 18080/18081/18150 não tinham listener ao final; `127.0.0.1:18083` pertencia a worker TopazioAI externo observado no gate | PASS local; externo preservado |
 | Controller TopazioAI | configuração e scripts estudados somente por leitura; não iniciado | PASS |
 | AFolha | consumidor documentado separado; nenhum endpoint/job foi acessado | PASS |
 
@@ -105,6 +105,11 @@ aceita como geração válida; A–D ficaram `FAIL`. E continuou `PASS`. O servi
 resultado foi mantido como falha de compatibilidade/qualidade do caminho Vulkan neste host, não
 como falha do contrato do gateway.
 
+Durante o gate final foi observado um worker externo do TopazioAI em `127.0.0.1:18083`, com
+Qwen3 8B Vulkan, `-ngl 36`, contexto 2048 e `-Once`. A linha de comando identifica
+`E:\TopazioAI\scripts\topazio-ai-worker.ps1`; o LocalCoder não iniciou, parou, consultou a fila
+ou alterou esse processo. Ele foi preservado para não interromper outro consumidor.
+
 ## 9. Falhas e recuperação
 
 | Falha | Resultado |
@@ -132,7 +137,8 @@ o laboratório real A–E com resultado CPU `PASS`.
 - Prompt e resposta não entram em AuditStore nem BenchmarkResult.
 - Redaction continua aplicada a erros, metadados e métricas.
 - Não houve import, execução, escrita, fila, job, download ou cópia em AFolha/TopazioAI.
-- O processo externo foi iniciado e encerrado explicitamente; nenhum servidor permaneceu ativo.
+- O processo externo iniciado pelo LocalCoder foi encerrado; os ports 18080/18081 ficaram livres.
+  O worker TopazioAI em 18083 foi observado e preservado, sem intervenção do LocalCoder.
 
 ## 12. Limitações
 
@@ -150,17 +156,16 @@ o laboratório real A–E com resultado CPU `PASS`.
 
 ## 14. TopazioAI
 
-`PASS`: worktree permaneceu limpo; runtime e modelos foram somente lidos/executados como processo
-externo explícito, sem scripts do controller, fila, segredo, configuração ou arquivo do projeto
-ser alterado.
+`PASS`: worktree permaneceu limpo; runtime e modelos foram somente lidos. O laboratório do
+LocalCoder não executou scripts do controller nem tocou fila, segredo, configuração ou arquivo do
+projeto. Um worker TopazioAI externo foi observado em execução e preservado.
 
 ## 15. Git/GitHub
 
-O repositório público `0xTPZ/LocalCoder` foi atualizado sem force push. O HEAD final e os commits
-da missão ficam registrados no histórico: `2df6ee0` (`feat: add model gateway and inference lab`)
-contém a implementação e a documentação base desta missão. A sincronização documental final segue
-no commit imediatamente posterior; o gate inclui testes, scanner, compilação, schemas, diff check,
-artefatos proibidos e worktrees externos.
+O repositório público `0xTPZ/LocalCoder` foi atualizado sem force push. `2df6ee0` (`feat: add model
+gateway and inference lab`) contém a implementação; `bfd281f` (`docs: finalize Mission 004 evidence`)
+contém a evidência documental publicada. O gate final inclui testes, scanner, compilação, schemas,
+diff check, artefatos proibidos e worktrees externos.
 
 ## 16. Próxima missão recomendada
 

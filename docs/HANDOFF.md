@@ -15,8 +15,8 @@ agente autônomo, shell, scheduler e edição de projetos.
 - `llama.cpp 0.5.0-dev`, build `b11344`, commit `ec7630a64`, CPU e Vulkan, em `E:\TopazioAI`.
 - Qwen3 4B/8B/14B GGUF e Q3_K_L foram somente inventariados; nenhum modelo foi copiado.
 - Qwen3 4B Q4_K_M foi usado como experimento: CPU passou A–E; Vulkan falhou por saída ilegível.
-- Nenhum `llama-server` fica ativo após o laboratório; endpoints experimentais 18080/18081 são
-  loopback e foram encerrados.
+- Nenhum processo/listener do laboratório LocalCoder fica ativo; endpoints experimentais 18080/18081
+  foram encerrados. Um worker TopazioAI externo pode permanecer em 18083 e não deve ser interrompido.
 - TopazioAI resource controller, worker, fila e segredo não foram iniciados ou alterados.
 
 ## O que existe
@@ -58,10 +58,10 @@ python tools\run_model_lab.py --config configs\model-gateway.example.json `
 
 ## Git e GitHub
 
-O repositório público é https://github.com/0xTPZ/LocalCoder. O commit de implementação da Missão
-004 é `2df6ee0` (`feat: add model gateway and inference lab`); a sincronização documental final
-segue no histórico imediatamente posterior. Não usar force push. Antes do push devem passar suíte,
-scanner, compilação, schemas, diff check, artefatos proibidos e worktrees externos.
+O repositório público é https://github.com/0xTPZ/LocalCoder. Os commits são `2df6ee0` (`feat: add
+model gateway and inference lab`) e `bfd281f` (`docs: finalize Mission 004 evidence`). Não usar
+force push. O worker externo observado em 18083 deve ser preservado; o gate local considera apenas
+os processos/ports iniciados pelo laboratório.
 
 ## Próxima missão recomendada
 
