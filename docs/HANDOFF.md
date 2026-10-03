@@ -17,7 +17,8 @@ agente autônomo, shell, scheduler e edição de projetos.
 - Qwen3 4B Q4_K_M foi usado como experimento: CPU passou A–E; Vulkan falhou por saída ilegível.
 - Nenhum processo/listener do laboratório LocalCoder fica ativo; endpoints experimentais 18080/18081
   foram encerrados. Um worker TopazioAI externo pode permanecer em 18083 e não deve ser interrompido.
-- TopazioAI resource controller, worker, fila e segredo não foram iniciados ou alterados.
+- TopazioAI resource controller, fila e segredo não foram iniciados pelo LocalCoder nem alterados;
+  um worker externo foi observado em 18083 e preservado.
 
 ## O que existe
 
@@ -59,9 +60,9 @@ python tools\run_model_lab.py --config configs\model-gateway.example.json `
 ## Git e GitHub
 
 O repositório público é https://github.com/0xTPZ/LocalCoder. Os commits são `2df6ee0` (`feat: add
-model gateway and inference lab`) e `bfd281f` (`docs: finalize Mission 004 evidence`). Não usar
-force push. O worker externo observado em 18083 deve ser preservado; o gate local considera apenas
-os processos/ports iniciados pelo laboratório.
+model gateway and inference lab`), `bfd281f` (`docs: finalize Mission 004 evidence`) e `a8fcf00`
+(`docs: record external runtime preservation`). Não usar force push. O worker externo observado em
+18083 deve ser preservado; o gate local considera apenas os processos/ports iniciados pelo laboratório.
 
 ## Próxima missão recomendada
 

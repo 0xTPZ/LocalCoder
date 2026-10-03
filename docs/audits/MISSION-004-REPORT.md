@@ -164,8 +164,9 @@ projeto. Um worker TopazioAI externo foi observado em execução e preservado.
 
 O repositório público `0xTPZ/LocalCoder` foi atualizado sem force push. `2df6ee0` (`feat: add model
 gateway and inference lab`) contém a implementação; `bfd281f` (`docs: finalize Mission 004 evidence`)
-contém a evidência documental publicada. O gate final inclui testes, scanner, compilação, schemas,
-diff check, artefatos proibidos e worktrees externos.
+contém a evidência documental publicada; `a8fcf00` (`docs: record external runtime preservation`)
+registra a preservação do worker compartilhado observado. O gate final inclui testes, scanner,
+compilação, schemas, diff check, artefatos proibidos e worktrees externos.
 
 ## 16. Próxima missão recomendada
 
