@@ -11,8 +11,9 @@ inferência continuam fora de escopo.
 
 ## 2. Commit final
 
-Será preenchido com o commit da implementação antes do push final. O commit de sincronização
-documental posterior será identificado no handoff e na saída final da missão.
+`941833a8d2cca8e4a4c67e6691b1d3cb391aefa8` — `feat: add versioned state persistence foundation`.
+O commit contém a implementação, schemas, testes, licença e documentação da missão. O commit de
+sincronização documental posterior será identificado no handoff e na saída final.
 
 ## 3. Schemas implementados
 
