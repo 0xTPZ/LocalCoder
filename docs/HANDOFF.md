@@ -36,9 +36,11 @@ git status --short
 
 ## Git e GitHub
 
-O Git local é criado nesta missão. O estado exato, commits e remoto estão no relatório. O GitHub
-CLI foi confirmado autenticado como `0xTPZ`; a criação do repositório público depende da etapa
-explicitamente registrada no relatório e não deve ocorrer com segredo no diff.
+O Git local é criado nesta missão. O GitHub CLI foi confirmado autenticado como `0xTPZ`; a criação
+do repositório público depende da etapa explicitamente registrada no relatório e não deve ocorrer
+com segredo no diff.
+
+Commit local atual: `7bd942c0a8367ef0f4695ffc9b029c3e48a5a07f` (`feat: establish LocalCoder foundation`).
 
 ## Próxima missão recomendada
 

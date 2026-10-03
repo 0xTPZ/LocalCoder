@@ -108,21 +108,22 @@ modificado. O inventário de paths versionados está disponível com `git ls-fil
 
 ## 11. Git
 
-Git foi inicializado em `E:\LocalCoder` com branch `main`. O commit da Missão 001 deve ser
-pequeno e local; o hash e o status final são preenchidos após a validação final.
+Git foi inicializado em `E:\LocalCoder` com branch `main`. O primeiro commit criado foi:
+
+- `7bd942c0a8367ef0f4695ffc9b029c3e48a5a07f` — `feat: establish LocalCoder foundation`
+
+O status estava limpo após o commit.
 
 ## 12. GitHub
 
 O GitHub CLI foi verificado autenticado como `0xTPZ`. Antes da missão, `0xTPZ/LocalCoder` não
-existia. A criação de repositório público e o primeiro push requerem auditoria final do diff,
-decisão de licença e confirmação de que nenhum segredo ou artefato grande está incluído; o estado
-real será registrado abaixo após a tentativa.
+existia. A criação de repositório público e o primeiro push requerem auditoria final do diff e
+confirmação de que nenhum segredo ou artefato grande está incluído. O estado final será registrado
+após a tentativa; a licença permanece uma decisão humana pendente.
 
 ## 13. Commits
 
-Preenchido após `git commit`:
-
-- `NOT TESTED` no momento da escrita inicial.
+- `7bd942c0a8367ef0f4695ffc9b029c3e48a5a07f` — `feat: establish LocalCoder foundation`
 
 ## 14. Próxima missão recomendada
 
