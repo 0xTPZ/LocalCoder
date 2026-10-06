@@ -21,6 +21,21 @@
   segredo.
 - Payloads de auditoria e checkpoint devem ser sanitizados pelo chamador.
 
+## Preservação e fronteiras da consolidação
+
+- `E:\LocalCoder` é a fonte local oficial. A auditoria de 2026-10-06 não promoveu código de
+  diretórios externos e não apagou itens ambíguos.
+- `E:\AFolha`, `E:\TopazioAI` e demais projetos permanecem fora do escopo de escrita. Perfis,
+  workers, runtimes, logs, modelos e históricos externos são evidência/infraestrutura de terceiros,
+  não dependências vendorizadas.
+- GGUF, pesos, caches grandes, ambientes virtuais, sessões do Codex e credenciais nunca devem ser
+  copiados para o repositório. Modelos e runtimes locais só podem ser referenciados por uma
+  configuração sanitizada e documentação.
+- Reconstrução do núcleo não depende de segredo nem de modelo: Python 3.12+, Git e a instalação
+  editável documentada são suficientes para a suíte determinística.
+- O relatório completo e o inventário classificado estão em
+  `docs/audits/FULL-PC-LOCALCODER-CONSOLIDATION.md`.
+
 ## Threat model inicial
 
 | Risco | Mitigação atual | Estado |

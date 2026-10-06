@@ -1,6 +1,6 @@
 # Handoff operacional
 
-Atualizado em 2026-10-03, Missão 004.
+Atualizado em 2026-10-06, Missão de consolidação e preservação.
 
 ## Estado atual
 
@@ -9,6 +9,12 @@ AuditEvents de inferência, Benchmark Harness v0 e laboratório real CPU A–E. 
 documentado para o caminho Vulkan no host: o runtime respondeu com saída ilegível. `NOT TESTED`
 para streaming/TTFT, CPU/GPU/VRAM portáveis, API remota, Resource Manager completo, Model Manager,
 agente autônomo, shell, scheduler e edição de projetos.
+
+A auditoria completa do PC também está `PASS`: não foi encontrada uma segunda árvore de código,
+nenhum item exclusivo ficou fora de `E:\LocalCoder` e a árvore local e o GitHub estão alinhados.
+Nenhum comando da missão escreveu em projeto externo. `TopazioAI` permaneceu limpo; `AFolha`
+apresentou alterações externas durante a janela final e foi preservado sem intervenção. Evidência:
+`docs/audits/FULL-PC-LOCALCODER-CONSOLIDATION.md`.
 
 ## Infraestrutura observada
 
@@ -59,10 +65,12 @@ python tools\run_model_lab.py --config configs\model-gateway.example.json `
 
 ## Git e GitHub
 
-O repositório público é https://github.com/0xTPZ/LocalCoder. Os commits são `2df6ee0` (`feat: add
-model gateway and inference lab`), `bfd281f` (`docs: finalize Mission 004 evidence`) e `a8fcf00`
-(`docs: record external runtime preservation`). Não usar force push. O worker externo observado em
-18083 deve ser preservado; o gate local considera apenas os processos/ports iniciados pelo laboratório.
+O repositório público é https://github.com/0xTPZ/LocalCoder. Os commits anteriores incluem `2df6ee0`
+(`feat: add model gateway and inference lab`), `bfd281f` (`docs: finalize Mission 004 evidence`) e
+`a8fcf00` (`docs: record external runtime preservation`). A consolidação foi registrada em commits
+adicionais desta missão; o fechamento exige `HEAD == origin/main`, working tree limpo e sem force
+push. O worker externo observado em 18083 deve ser preservado; o gate local considera apenas os
+processos/ports iniciados pelo laboratório.
 
 ## Próxima missão recomendada
 

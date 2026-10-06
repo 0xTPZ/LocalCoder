@@ -8,7 +8,8 @@
   padrão.
 
 Node.js, runtimes de inferência, GPUs e ferramentas externas não são necessários para executar os
-testes das Missões 001, 002 e 003.
+testes determinísticos das Missões 001–004. O laboratório real de modelo é opt-in e usa somente
+runtime/modelo externo já documentado; ele não é necessário para reconstruir o núcleo.
 
 ## Verificação local
 

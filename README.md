@@ -36,9 +36,11 @@ No PowerShell:
 
 ```powershell
 Set-Location E:\LocalCoder
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --no-deps -e .
 python -m unittest discover -s tests -v
 python tools\check_secrets.py
-python -m localcoder
+.\.venv\Scripts\python.exe -m localcoder
 ```
 
 Para usar o pacote como instalação editável em um ambiente isolado:
@@ -64,6 +66,7 @@ projeto. A instalação editável modifica somente o ambiente virtual local, que
 - [Relatório da Missão 002](docs/audits/MISSION-002-REPORT.md)
 - [Relatório da Missão 003](docs/audits/MISSION-003-REPORT.md)
 - [Relatório da Missão 004](docs/audits/MISSION-004-REPORT.md)
+- [Auditoria completa de consolidação](docs/audits/FULL-PC-LOCALCODER-CONSOLIDATION.md)
 - [Missão 003](docs/missions/003-durable-recovery.md)
 - [Missão 004](docs/missions/004-model-gateway.md)
 - [Configuração segura de gateway](configs/model-gateway.example.json)

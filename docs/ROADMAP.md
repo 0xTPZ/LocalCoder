@@ -70,6 +70,17 @@ Implementação e evidências: `docs/audits/MISSION-003-REPORT.md`.
 
 Implementação e evidências: `docs/audits/MISSION-004-REPORT.md`.
 
+## Gate de consolidação — concluído em 2026-10-06
+
+- **Objetivo:** consolidar e preservar todo o material necessário para reconstrução antes de
+  iniciar novas funcionalidades.
+- **Resultado:** `E:\LocalCoder` é a única fonte local oficial; a árvore remota `main` contém os
+  mesmos 97 arquivos rastreados; não houve código exclusivo fora do repositório.
+- **Proteções:** nenhum modelo, cache grande, segredo ou código de AFolha/TopazioAI foi copiado;
+  nenhum arquivo externo foi apagado.
+- **Evidência:** `docs/audits/FULL-PC-LOCALCODER-CONSOLIDATION.md`.
+- **Decisão:** não iniciar a Missão 005 durante este gate.
+
 ## Fase 3 — Projeto, roadmap e missão bounded
 
 ### Missão 005 — ingestão segura de projeto

@@ -1,5 +1,13 @@
 # Changelog
 
+## Consolidação e preservação — 2026-10-06
+
+- Consolidado o inventário completo de `C:\` e `E:\` em
+  `docs/audits/FULL-PC-LOCALCODER-CONSOLIDATION.md`.
+- Confirmada a árvore remota reconstruível com 97 arquivos rastreados, sem importar código
+  externo, modelos, caches grandes ou segredos.
+- Atualizadas as instruções de instalação, segurança, handoff, roadmap e desenvolvimento.
+
 ## 0.4.0 — 2026-10-03
 
 - Adicionado Model Backend contract executável, `OpenAICompatibleBackend` e `ModelGateway`.
