@@ -52,6 +52,8 @@ não em uma segunda implementação rastreável. A busca não identificou itens 
 
 - `HEAD` antes da auditoria: `eb0a17efdaf9b755d7d0af7cb1d13accbe33a7d5`.
 - A árvore local tinha 97 blobs e a árvore `main` no GitHub tinha 97 blobs.
+- Após versionar este relatório, a árvore final passou a ter 98 blobs; a árvore final do GitHub
+  também tem 98 blobs.
 - Caminhos locais ausentes no remoto: `0`.
 - Caminhos remotos ausentes localmente: `0`.
 - Arquivos rastreados acima de 50 MiB: `0`.
